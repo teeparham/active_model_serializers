@@ -162,6 +162,10 @@ class RenderJsonTest < ActionController::TestCase
       render :json => [], :serializer => CustomArraySerializer
     end
 
+    def render_json_array_of_hash
+      render :json => [{ :foo => "bar" }]
+    end
+
 
   private
     def default_serializer_options
@@ -300,6 +304,11 @@ class RenderJsonTest < ActionController::TestCase
   def test_render_json_array_with_custom_array_serializer
     get :render_json_array_with_custom_array_serializer
     assert_equal '{"items":[]}', @response.body
+  end
+
+  def test_render_json_array_of_hash
+    get :render_json_array_of_hash
+    assert_equal '{"test":[{"foo":"bar"}]}', @response.body
   end
 
 end
